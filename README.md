@@ -45,16 +45,25 @@ PetCare provides a simple platform where:
 4. Pet status updates to **Adopted**.  
 5. Provider can view adopter details from dashboard.  
 
-<img width="1920" height="1080" alt="Screenshot (148)" src="https://github.com/user-attachments/assets/fa2e02e1-52c7-432b-bea7-c792fc627213" />
-                                            **Home Page**
+## 🖥️ Application Screenshots
 
-                                            
-<img width="1920" height="1080" alt="Screenshot (149)" src="https://github.com/user-attachments/assets/d1a2e1eb-0a0f-4342-ae95-1bc44d22d9f8" />
-                                           **Provider Dashboard**
+---
 
-                                           
-<img width="1920" height="1080" alt="Screenshot (150)" src="https://github.com/user-attachments/assets/f337c614-9bdc-4fe8-b276-390e53762e9d" />
-                                           **Adopter Dashboard**
+### **Home Page**
+
+![Home Page](https://github.com/user-attachments/assets/fa2e02e1-52c7-432b-bea7-c792fc627213)
+
+---
+
+### **Provider Dashboard**
+
+![Provider Dashboard](https://github.com/user-attachments/assets/d1a2e1eb-0a0f-4342-ae95-1bc44d22d9f8)
+
+---
+
+### **Adopter Dashboard**
+
+![Adopter Dashboard](https://github.com/user-attachments/assets/f337c614-9bdc-4fe8-b276-390e53762e9d)
 
                                            
 
