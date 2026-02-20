@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PetCare | Adopt a Pet</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f4f7fb;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #1f3a5f, #162c46);
+    color: white;
+    padding: 25px 15px;
+    transition: 0.3s ease;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Main */
+.main-content {
+    flex: 1;
+    padding: 30px 40px;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.topbar h2 {
+    color: #1f3a5f;
+    font-weight: 600;
+}
+
+.profile-box {
+    background: white;
+    padding: 6px 14px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Hamburger */
+.menu-btn {
+    display: none;
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #1f3a5f;
+}
+
+/* Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Filter */
+.filter-btn.active {
+    background-color: #1f3a5f;
+    color: white;
+}
+
+/* Grid */
+.pet-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Card */
+.pet-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+}
+
+.pet-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.pet-card-body {
+    padding: 18px;
+    font-size: 0.95rem;
+}
+
+.pet-card-body h5 {
+    text-align: center;
+    font-weight: 600;
+    color: #1f3a5f;
+    margin-bottom: 12px;
+}
+
+.status {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: #e6f4ea;
+    color: #1e7e34;
+}
+
+.btn-adopt {
+    background-color: #1f3a5f;
+    color: white;
+    border-radius: 25px;
+    padding: 8px 20px;
+    margin-top: 12px;
+}
+
+.btn-adopt:hover {
+    background-color: #16304a;
+    color: white;
+}
+
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    color: #777;
+}
+
+/* MOBILE */
+@media (max-width: 991px) {
+
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .menu-btn {
+        display: inline-block;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .topbar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .filter-btn {
+        margin-bottom: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="mb-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi" viewBox="0 0 16 16">
+        <path d="M8 0C6.343 0 5 1.343 5 3s1.343 3 3 3 3-1.343 3-3S9.657 0 8 0zM2.5 2C1.672 2 1 2.672 1 3.5S1.672 5 2.5 5 4 4.328 4 3.5 3.328 2 2.5 2zM13.5 2c-.828 0-1.5.672-1.5 1.5S12.672 5 13.5 5 15 4.328 15 3.5 14.328 2 13.5 2zM3 8c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm10 0c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-5 2c-1.105 0-2 .895-2 2v1h4v-1c0-1.105-.895-2-2-2z"/>
+      </svg> PetCare
+    </h4>
+
+        <button class="btn text-white d-lg-none" onclick="toggleSidebar()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+
+    <a href="/adopterDashboard/"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a href="/adopt/"><i class="bi bi-heart"></i> Adopt a Pet</a>
+    <a href="/care/"><i class="bi bi-journal-medical"></i> Care Tips</a>
+    <a href="/profile_adopter/"><i class="bi bi-person"></i> My Profile</a>
+    <a href="/logout/"><i class="bi bi-box-arrow-right"></i> Logout</a>
+</div>
+
+<!-- Main -->
+<div class="main-content">
+
+    <div class="topbar">
+        <div class="d-flex align-items-center">
+            <span class="menu-btn me-3" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </span>
+            <h2 class="mb-0">Available Pets</h2>
+        </div>
+
+        <div class="profile-box">
+            <i class="bi bi-person-circle"></i> {{ name }}
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1>Find Your Perfect Companion</h1>
+        <p>Adopt and give a loving home today ❤️</p>
+    </div>
+
+    <div class="text-center mb-4">
+        <button class="btn btn-outline-primary filter-btn active" data-filter="all">All</button>
+        <button class="btn btn-outline-primary filter-btn" data-filter="dog">Dogs</button>
+        <button class="btn btn-outline-primary filter-btn" data-filter="cat">Cats</button>
+    </div>
+
+    <div class="pet-cards">
+        {% for pet in pets %}
+        <div class="pet-card" data-category="{{ pet.type|lower }}">
+
+            {% if pet.photo %}
+            <img src="{{ pet.photo }}" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImage(this)">
+            {% else %}
+            <img src="/static/default.jpg" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="showImage(this)">
+            {% endif %}
+
+            <div class="pet-card-body">
+                <h5>{{ pet.name }}</h5>
+                <div><strong>Age:</strong> {{ pet.age }}</div>
+                <div><strong>Type:</strong> {{ pet.type }}</div>
+                <div><strong>Category:</strong> {{ pet.category }}</div>
+                <div><strong>Location:</strong> {{ pet.location }}</div>
+                <div><strong>Contact:</strong> {{ pet.contact }}</div>
+                <div><strong>Status:</strong> <span class="status">Available</span></div>
+
+                {% if pet.status != "Adopted" %}
+                <div class="text-center">
+                    <a href="/adopt-form/{{ pet.id }}/" class="btn btn-adopt btn-sm">Adopt Me</a>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+        {% empty %}
+        <h5>No pets available right now 🐾</h5>
+        {% endfor %}
+    </div>
+
+    <div class="footer">© 2025 PetCare</div>
+
+</div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body text-center position-relative">
+        <button type="button" class="btn btn-light position-absolute top-0 end-0 m-3"
+                data-bs-dismiss="modal">✖</button>
+        <img id="modalImage" src="" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+function showImage(imgElement) {
+    document.getElementById("modalImage").src = imgElement.src;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const petCards = document.querySelectorAll(".pet-card");
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            this.classList.add("active");
+
+            const filterValue = this.getAttribute("data-filter");
+
+            petCards.forEach(card => {
+                const category = card.getAttribute("data-category");
+                card.style.display =
+                    (filterValue === "all" || category === filterValue)
+                    ? "flex" : "none";
+            });
+        });
+    });
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

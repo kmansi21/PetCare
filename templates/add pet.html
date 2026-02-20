@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Pet - PetCare</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f7fb;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #1f3a5f, #162c46);
+  color: white;
+  padding: 25px 15px;
+  transition: 0.3s ease;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #1f3a5f;
+}
+
+h2 {
+  color: #1f3a5f;
+  font-weight: 600;
+  margin: 0;
+}
+
+.form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.form-control:focus, .form-select:focus {
+  box-shadow: none;
+  border-color: #1f3a5f;
+}
+
+.btn-submit {
+  background-color: #1f3a5f;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #162c46;
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+/* MOBILE */
+@media (max-width: 991px) {
+
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -240px;
+    top: 0;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    
+    <!-- Sidebar Header with Close Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="mb-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi" viewBox="0 0 16 16">
+        <path d="M8 0C6.343 0 5 1.343 5 3s1.343 3 3 3 3-1.343 3-3S9.657 0 8 0zM2.5 2C1.672 2 1 2.672 1 3.5S1.672 5 2.5 5 4 4.328 4 3.5 3.328 2 2.5 2zM13.5 2c-.828 0-1.5.672-1.5 1.5S12.672 5 13.5 5 15 4.328 15 3.5 14.328 2 13.5 2zM3 8c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm10 0c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-5 2c-1.105 0-2 .895-2 2v1h4v-1c0-1.105-.895-2-2-2z"/>
+      </svg> PetCare
+    </h4>
+
+      <!-- Close Button (Mobile Only) -->
+      <button class="btn text-white d-lg-none" onclick="toggleSidebar()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <a href="/providerDashboard/" onclick="toggleSidebar()">
+      <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
+    <a href="/add-pet/" onclick="toggleSidebar()">
+      <i class="bi bi-plus-circle"></i> Add Pet
+    </a>
+    <a href="/my-pets/" onclick="toggleSidebar()">
+      <i class="bi bi-heart"></i> My Pets
+    </a>
+    <a href="/profile_provider/" onclick="toggleSidebar()">
+      <i class="bi bi-person"></i> My Profile
+    </a>
+    <a href="/logout/">
+      <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <span class="menu-btn" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </span>
+      <h2>Add a Pet</h2>
+    </div>
+
+    <div class="form-card">
+      <h4 class="mb-4 text-primary">Pet Information</h4>
+
+      <form action="/add-pet/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if success %}
+        <div class="alert alert-success">
+          Pet added successfully!
+        </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label class="form-label">Animal Name (If known)</label>
+          <input type="text" class="form-control" name="name"
+            placeholder="e.g., Bruno, Kitty, Unknown">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Animal Type</label>
+          <select class="form-select" name="type">
+            <option selected disabled>Select Type</option>
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" name="category">
+            <option selected disabled>Choose one</option>
+            <option>Stray / Homeless</option>
+            <option>Personal Pet for Adoption</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Location Found / Current Location</label>
+          <input type="text" class="form-control" name="location"
+            placeholder="Area / Street / Landmark">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Contact Number</label>
+          <input type="text" class="form-control" name="contact"
+            placeholder="Enter your phone number for adopter to contact" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Approx. Age</label>
+          <input type="text" class="form-control" name="age"
+            placeholder="e.g., 6 months, 2 years">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="description" rows="4"
+            placeholder="Behavior, situation, special notes..."></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Animal Photo</label>
+          <input type="file" class="form-control" name="photo"
+            accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn btn-submit px-4">
+          Add Pet
+        </button>
+      </form>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 PetCare | info@petcare.com
+    </div>
+
+  </div>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" onclick="toggleSidebar()"></div>
+
+<script>
+function toggleSidebar() {
+  document.querySelector(".sidebar").classList.toggle("active");
+  document.querySelector(".overlay").classList.toggle("active");
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

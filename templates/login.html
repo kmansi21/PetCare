@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Register - PetCare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e9f4fc;
+    }
+
+    .auth-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .auth-card {
+      background-color: white;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 500px;
+      transition: transform 0.3s;
+    }
+    .auth-card:hover {
+      transform: translateY(-5px);
+    }
+    .auth-card .back-home {
+      display: block;
+      text-align: center;
+      margin-bottom: 20px;
+      text-decoration: none;
+      color: #1f3a5f;
+      font-weight: 600;
+    }
+    .auth-card .back-home:hover {
+      text-decoration: underline;
+    }
+    .auth-card h2 {
+      color: #1f3a5f;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .auth-card input, .auth-card select, .auth-card textarea {
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 15px;
+      width: 100%;
+      font-size: 1rem;
+    }
+    .auth-card button {
+      background-color: #1f3a5f;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+    }
+    .auth-card button:hover {
+      background-color: #16304a;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 25px;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      background-color: #f1f9ff;
+      font-weight: bold;
+      color: #1f3a5f;
+      transition: 0.3s;
+      margin: 0 5px;
+    }
+    .tab.active {
+      background-color: #1f3a5f;
+      color: white;
+    }
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .radio-group input {
+      width: auto;
+    }
+    .navbar-brand {
+      color: #1f3a5f !important;
+      font-weight: bold;
+      font-size: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div style="text-align: center; margin: 20px 20px;">
+  <a href="index.html" style="text-decoration: none; color: #1f3a5f; font-weight: bold; font-size: 2rem; display: inline-flex; align-items: center; gap: 10px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#1f3a5f" class="bi" viewBox="0 0 16 16">
+      <path d="M8 0C6.343 0 5 1.343 5 3s1.343 3 3 3 3-1.343 3-3S9.657 0 8 0zM2.5 2C1.672 2 1 2.672 1 3.5S1.672 5 2.5 5 4 4.328 4 3.5 3.328 2 2.5 2zM13.5 2c-.828 0-1.5.672-1.5 1.5S12.672 5 13.5 5 15 4.328 15 3.5 14.328 2 13.5 2zM3 8c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm10 0c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-5 2c-1.105 0-2 .895-2 2v1h4v-1c0-1.105-.895-2-2-2z"/>
+    </svg>
+    PetCare
+  </a>
+</div>
+
+  <!-- Auth Section -->
+  <section class="auth-section">
+    
+    <div class="auth-card">
+      
+      <div class="tabs">
+        <div class="tab active" id="login-tab">Login</div>
+        <div class="tab" id="register-tab">Register</div>
+      </div>
+
+      <!-- Login Form -->
+<form id="login-form" method="POST" action="/login/">
+  {% csrf_token %}
+  {% if error %}
+  <div class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+{% endif %}
+
+  <h2>Login</h2>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" required>
+    <div class="radio-group">
+    <label><input type="radio" name="role" value="adopter" required> Adopter</label>
+    <label><input type="radio" name="role" value="provider" required> Pet Provider</label>
+  </div>
+  <button type="submit">Login</button><br><br>
+  <a href="/" class="back-home">&larr; Back to Home</a>
+</form>
+
+
+      <!-- Register Form -->
+<form id="register-form" style="display:none;" method="POST" action="/register/">
+  {% csrf_token %}
+  {% if status %}
+  <div class="alert alert-success text-center">
+    {{ status }}
+  </div>
+{% endif %}
+
+{% if error %}
+  <div class="alert alert-danger text-center">
+    {{ error }}
+  </div>
+{% endif %}
+
+  <h2>Register</h2>
+  <input type="text" name="name" placeholder="Full Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+  <input type="text" name="phone" placeholder="Phone Number" required>
+
+  <div class="radio-group">
+    <label><input type="radio" name="role" value="adopter" required> Adopter</label>
+    <label><input type="radio" name="role" value="provider"> Pet Provider</label>
+  </div>
+
+  <textarea name="address" rows="3" placeholder="Address"></textarea>
+
+  <button type="submit">Register</button>
+</form>
+
+    </div>
+  </section>
+
+  <script>
+    const loginTab = document.getElementById('login-tab');
+    const registerTab = document.getElementById('register-tab');
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+
+    loginTab.addEventListener('click', () => {
+      loginTab.classList.add('active');
+      registerTab.classList.remove('active');
+      loginForm.style.display = 'block';
+      registerForm.style.display = 'none';
+    });
+
+    registerTab.addEventListener('click', () => {
+      registerTab.classList.add('active');
+      loginTab.classList.remove('active');
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

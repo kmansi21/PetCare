@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Adoption & Care Portal</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* NAVBAR */
+.navbar { background-color: #1f3a5f; }
+.navbar-brand { color: #fff !important; font-weight: bold; }
+.navbar-nav .nav-link { color: #fff !important; margin-left: 15px; }
+
+.navbar-toggler { border-color: rgba(255,255,255,0.5); }
+.navbar-toggler-icon { filter: invert(1); }
+
+/* HERO */
+.hero {
+  background: url('/static/home1.jpeg') center/cover no-repeat;
+  min-height: 80vh;
+  padding: 60px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+.hero-content { position: relative; z-index: 1; }
+
+@media (max-width: 768px) {
+  .hero { min-height: 60vh; padding: 40px 15px; }
+  .hero h1 { font-size: 1.8rem; }
+  .hero p { font-size: 1rem; }
+}
+
+/* CARDS */
+.card img { height: 200px; object-fit: cover; }
+@media (max-width: 576px) {
+  .card img { height: 180px; }
+}
+
+/* BUTTON */
+.btn-adopt {
+  background-color: #1f3a5f;
+  color: white;
+  border-radius: 25px;
+  padding: 8px 20px;
+}
+.btn-adopt:hover { background-color: #16304a; }
+
+@media (max-width: 576px) {
+  .btn-adopt, .btn-lg { width: 50%; }
+}
+
+/* TIPS */
+.tips-section .card {
+  border: none;
+  border-radius: 15px;
+  transition: 0.3s;
+  background-color: #e9f4fc;
+}
+.tips-section .card:hover { transform: translateY(-6px); }
+
+/* FAQ */
+.accordion-button { font-size: 0.95rem; }
+
+/* FOOTER */
+.footer-section {
+  background-color: #b7e3dc;
+  padding: 25px 15px;
+  text-align: center;
+  color: #1f2d3d;
+  font-size: 0.9rem;
+}
+
+/* Fix anchor */
+section { scroll-margin-top: 70px; }
+
+@media (max-width: 576px) {
+  .container { padding-left: 15px; padding-right: 15px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+<div class="container">
+<a class="navbar-brand" href="#home">     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi" viewBox="0 0 16 16">
+        <path d="M8 0C6.343 0 5 1.343 5 3s1.343 3 3 3 3-1.343 3-3S9.657 0 8 0zM2.5 2C1.672 2 1 2.672 1 3.5S1.672 5 2.5 5 4 4.328 4 3.5 3.328 2 2.5 2zM13.5 2c-.828 0-1.5.672-1.5 1.5S12.672 5 13.5 5 15 4.328 15 3.5 14.328 2 13.5 2zM3 8c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm10 0c-1.105 0-2 .895-2 2s.895 2 2 2 2-.895 2-2-.895-2-2-2zm-5 2c-1.105 0-2 .895-2 2v1h4v-1c0-1.105-.895-2-2-2z"/>
+      </svg> PetCare</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarNav">
+<ul class="navbar-nav ms-auto align-items-center align-items-lg-center text-center text-lg-start gap-2 gap-lg-0">
+
+<li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#pets">Adopt</a></li>
+<li class="nav-item"><a class="nav-link" href="#care">Care Tips</a></li>
+<li class="nav-item"><a class="nav-link" href="#faqSection">FAQs</a></li>
+<li class="nav-item"><a href="/login/" class="btn btn-outline-light ms-2">Login</a></li>
+<li class="nav-item"><a href="/register/" class="btn btn-light ms-2">Register</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+<div class="hero-content">
+<h1 class="fw-bold">Bring Home a Bundle of Joy 🐾</h1>
+<p class="lead">
+Every pet deserves a loving home and a caring family.
+Find your loyal companion today.
+</p>
+<a href="#pets" class="btn btn-lg btn-light mt-3">Find a Pet</a>
+</div>
+</section>
+
+<!-- HOW ADOPTION WORKS -->
+<section class="py-5 bg-light">
+<div class="container text-center">
+<h2 class="mb-5">Adopt in 3 Simple Steps 🐾</h2>
+<div class="row g-4">
+<div class="col-md-4">
+<i class="bi bi-search-heart fs-1 text-primary"></i>
+<h5 class="mt-3">Browse Pets</h5>
+<p>Explore pets looking for a loving home.</p>
+</div>
+<div class="col-md-4">
+<i class="bi bi-file-earmark-text fs-1 text-success"></i>
+<h5 class="mt-3">Submit Request</h5>
+<p>Apply to adopt and share details.</p>
+</div>
+<div class="col-md-4">
+<i class="bi bi-house-heart fs-1 text-danger"></i>
+<h5 class="mt-3">Welcome Home</h5>
+<p>Bring your new friend home.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FEATURED PETS -->
+<section id="pets" class="py-5" style="background-color:#e9f4fc;">
+<div class="container">
+<h2 class="text-center mb-5">Meet Our Lovely Pets</h2>
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card shadow h-100">
+<img src="/static/home2.jpg" class="card-img-top">
+<div class="card-body text-center">
+<h5>Bella</h5>
+<p>2-year-old Beagle, cheerful and loving.</p>
+<a href="/login/" class="btn btn-adopt">View Profile</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow h-100">
+<img src="/static/home3.jpg" class="card-img-top">
+<div class="card-body text-center">
+<h5>Milo</h5>
+<p>1.5-year-old Cat, calm and playful.</p>
+<a href="/login/" class="btn btn-adopt">View Profile</a>
+</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow h-100">
+<img src="/static/home4.jpg" class="card-img-top">
+<div class="card-body text-center">
+<h5>Charlie</h5>
+<p>3-year-old Golden Retriever, loyal and fun-loving.</p>
+<a href="/login/" class="btn btn-adopt">View Profile</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- CARE TIPS -->
+<section id="care" class="tips-section py-5">
+<div class="container">
+<h2 class="text-center mb-5">Essential Care Tips 🐾</h2>
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card p-4 shadow text-center">
+<i class="bi bi-egg-fried fs-1 text-success"></i>
+<h5 class="mt-3">Balanced Diet</h5>
+<p>Provide nutritious food daily.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-4 shadow text-center">
+<i class="bi bi-heart-pulse fs-1 text-danger"></i>
+<h5 class="mt-3">Vet Visits</h5>
+<p>Routine checkups keep pets healthy.</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card p-4 shadow text-center">
+<i class="bi bi-balloon-heart fs-1 text-primary"></i>
+<h5 class="mt-3">Exercise</h5>
+<p>Daily playtime keeps them active.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<!-- FAQ SECTION -->
+<section id="faqSection" class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold">Frequently Asked Questions</h2>
+
+    <div class="accordion" id="faqAccordion">
+
+      <!-- FAQ 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq1"
+                  aria-expanded="true">
+            Is adoption really free?
+          </button>
+        </h2>
+        <div id="faq1"
+             class="accordion-collapse collapse show"
+             data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes. Our platform promotes free adoption of street and rescued animals.
+            We do not sell pets. Some providers may request reimbursement only for
+            medical expenses like vaccination.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq2">
+            Why should I adopt instead of buying a pet?
+          </button>
+        </h2>
+        <div id="faq2"
+             class="accordion-collapse collapse"
+             data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Adopting helps reduce the number of homeless street animals and
+            discourages unethical breeding. You save a life and give a
+            deserving animal a loving home.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq3">
+            Are the pets vaccinated or medically checked?
+          </button>
+        </h2>
+        <div id="faq3"
+             class="accordion-collapse collapse"
+             data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Many rescued pets receive basic medical care and vaccinations before adoption.
+            Please check the pet details or contact the provider for specific
+            health information.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq4">
+            What responsibilities do I have as an adopter?
+          </button>
+        </h2>
+        <div id="faq4"
+             class="accordion-collapse collapse"
+             data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Adopters must provide proper food, shelter, medical care,
+            and lifelong commitment. Pets should never be abandoned or resold.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#faq5">
+            Can I list a rescued street animal for adoption?
+          </button>
+        </h2>
+        <div id="faq5"
+             class="accordion-collapse collapse"
+             data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes. If you have rescued a street animal and want to find
+            a loving home, you can register as a provider and list
+            the pet on our platform.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<section class="footer-section">
+<p>Need advice? Email us at <strong>info@petcare.com</strong></p>
+<p>&copy; 2025 PetCare | All Rights Reserved</p>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
